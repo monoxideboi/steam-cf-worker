@@ -1,8 +1,8 @@
 export default {
 	async fetch(request, env, ctx) {
-		console.log('setting kv');
-		await env.RECENTGAME.put('key', 'text');
-		console.log(await env.RECENTGAME.get('key'));
+		// console.log('setting kv');
+		// await env.RECENTGAME.put('key', 'text');
+		// console.log(await env.RECENTGAME.get('key'));
 		const url = `http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key=${env.KEY}&steamid=${env.ID}&format=json`;
 		const cacheUrl = new URL(url);
 
