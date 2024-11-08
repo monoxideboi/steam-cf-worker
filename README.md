@@ -72,6 +72,14 @@ Returns an object for each of the IDs you put in. The key is whatever game ID it
 steamID: idk tbh
 ganeName: name of game
 achievements: achievments of the game (named weird, if achieved is 1 that means its complete)
+    name: name of achievement server side
+    default value: default val of the achiev
+    displayName: what the actual name is shown as
+    hidden: if 1 it is a secret achiev
+    description: description of achiev
+    icon: full url of the icon
+    icongray: full url of the locked achiev icon
+    achieved: if 1 then the achievement was unlocked
 stats: stats the game has chosen to give
 playtime_forever: playtime in minutes
 rtime_last_played: uts of time last played
