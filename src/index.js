@@ -49,7 +49,7 @@ export default {
 						// console.log(add[games[i].appid]);
 						if (add[games[i].appid]) {
 							console.log(`game ${games[i].appid} found`);
-							add[games[i].appid].platime_forever = games[i].playtime_forever;
+							add[games[i].appid].playtime_forever = games[i].playtime_forever;
 							add[games[i].appid].rtime_last_played = games[i].rtime_last_played;
 							if (games[i].playtime_2weeks) {	
 								add[games[i].appid].playtime_2weeks = games[i].playtime_2weeks;
@@ -124,9 +124,9 @@ export default {
 			// Must use Response constructor
 			response = Response.json(finaljson);
 
-			// Cache API respects Cache-Control headers. Setting s-max-age to 300
+			// Cache API respects Cache-Control headers. Setting s-max-age to 1 min
 			// will limit the response to be in cache for 5 minutes max
-			response.headers.append('Cache-Control', 's-maxage=300');
+			response.headers.append('Cache-Control', 's-maxage=60');
 
 			response.headers.append('Access-Control-Allow-Origin', '*');
 			response.headers.append('Access-Control-Allow-Headers', '*');
