@@ -19,6 +19,12 @@ cd steamcfworker
 
 The eddit the wrangler.toml file, replace the ID with your steam ID and the games array with a list of game IDs that you want to add
 
+Then create the KV namespace (where it stores your most recent game)
+
+```
+npx wrangler kv namespace create RECENTGAME
+```
+
 ```
 npx wrangler deploy
 ```
