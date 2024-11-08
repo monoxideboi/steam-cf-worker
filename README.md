@@ -71,7 +71,7 @@ Appologies for the horrendous casing and variable names, I didnt choose them
 ### games
 Returns an object for each of the IDs you put in. The key is whatever game ID it refers to. It returns
 ```
-steamID: idk tbh
+steamID: your steamID
 ganeName: name of game
 achievements: achievments of the game
     name: name of achievement server side
