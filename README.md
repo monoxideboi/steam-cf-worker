@@ -73,7 +73,7 @@ Returns an object for each of the IDs you put in. The key is whatever game ID it
 ```
 steamID: idk tbh
 ganeName: name of game
-achievements: achievments of the game (named weird, if achieved is 1 that means its complete)
+achievements: achievments of the game
     name: name of achievement server side
     default value: default val of the achiev
     displayName: what the actual name is shown as
