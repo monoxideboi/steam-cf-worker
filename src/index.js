@@ -14,7 +14,7 @@ export default {
 		// if not, you will need to fetch it from origin, and store it in the cache
 		let response = await cache.match(cacheKey);
 
-		if (!false) {
+		if (!response) {
 			console.log(`Response for request url: ${url} not present in cache. Fetching and caching request.`);
 			// If not in cache, get it from origin
 
