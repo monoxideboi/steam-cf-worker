@@ -14,7 +14,7 @@ export default {
 		// if not, you will need to fetch it from origin, and store it in the cache
 		let response = await cache.match(cacheKey);
 
-		if (!response) {
+		if (!false) {
 			console.log(`Response for request url: ${url} not present in cache. Fetching and caching request.`);
 			// If not in cache, get it from origin
 
@@ -22,7 +22,7 @@ export default {
 
 			let add = {};
 			for (let i = 0; i < env.GAMES.length; i++) {
-				let json = await fetch(
+				let userStats = await fetch(
 					`http://api.steampowered.com/ISteamUserStats/GetUserStatsForGame/v0002/?appid=${env.GAMES[i]}&key=${env.KEY}&steamid=${env.ID}`
 				)
 					.then((data) => {
@@ -30,9 +30,53 @@ export default {
 					})
 					.then((json) => {
 						// console.log(json);
+						// console.log('got game user stats');
 						return json;
 					});
-				add[env.GAMES[i]] = json.playerstats;
+
+				if (userStats.playerstats.achievements) {
+					let gameSchema = await fetch(
+						`https://api.steampowered.com/ISteamUserStats/GetSchemaForGame/v2/?key=${env.KEY}&appid=${env.GAMES[i]}`
+					)
+						.then((data) => {
+							return data.json();
+						})
+						.then((json) => {
+							// console.log(json);
+							return json.game;
+						});
+					// console.log(gameSchema);
+
+					let offset = 0;
+					// console.log(userStats);
+					let userAchiev = userStats.playerstats.achievements;
+					// console.log(userAchiev);
+					for (let i = 0; i < userAchiev.length; i++) {
+						// this can def be optimized lool
+
+						// console.log(userAchiev[i].name);
+						// console.log(gameSchema.availableGameStats.achievements[i + offset].name);
+						let found = false;
+						for (let j = offset; j < gameSchema.availableGameStats.achievements.length; j++) {
+							// console.log(gameSchema.availableGameStats.achievements[j].name);
+							if (userAchiev[i].name == gameSchema.availableGameStats.achievements[j].name) {
+								gameSchema.availableGameStats.achievements[i].achieved = 1;
+								console.log('found achiev');
+								offset++;
+								found = true;
+							} else {
+								console.log('achiev missing');
+							}
+						}
+						if (!found) {
+							gameSchema.availableGameStats.achievements[i].achieved = 0;
+						}
+
+						// console.log(gameSchema.availableGameStats.achievements[i + offset]);
+					}
+					userStats.playerstats.achievements = gameSchema.availableGameStats.achievements;
+				}
+				add[env.GAMES[i]] = userStats.playerstats;
 			}
 
 			await fetch(`http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${env.KEY}&steamid=${env.ID}&format=json`)
@@ -51,7 +95,7 @@ export default {
 							console.log(`game ${games[i].appid} found`);
 							add[games[i].appid].playtime_forever = games[i].playtime_forever;
 							add[games[i].appid].rtime_last_played = games[i].rtime_last_played;
-							if (games[i].playtime_2weeks) {	
+							if (games[i].playtime_2weeks) {
 								add[games[i].appid].playtime_2weeks = games[i].playtime_2weeks;
 							} else {
 								add[games[i].appid].playtime_2weeks = 0;
@@ -96,7 +140,6 @@ export default {
 					// console.log(json);
 					return json.response;
 				});
-
 
 			finaljson.recentgames = recentjson;
 
