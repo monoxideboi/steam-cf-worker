@@ -1,6 +1,6 @@
-# Lastfm rest api cloudflare worker
+# Steam rest api cloudflare worker
 
-This is a cloudflare worker that will create a restapi that will return your most recently/currently playing song! This lets you keep your api key yours and hidden while caching requests!
+This is a cloudflare worker that will create a restapi that will return a bunch of information on your steam games and recently played! This lets you keep your api key yours and hidden while caching requests!
 
 If you do not have a cloudflare account go get it!
 
@@ -65,6 +65,8 @@ If you want to make your api link like this: `example.com/steam`, you can go to 
 
 ## Usage
 Just use fetch to get the contents of your REST api. The json object return has three objects, games, currentgame, and recentgames.
+
+Appologies for the horrendous casing and variable names, I didnt choose them
 
 ### games
 Returns an object for each of the IDs you put in. The key is whatever game ID it refers to. It returns
