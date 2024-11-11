@@ -75,7 +75,7 @@ steamID: your steamID
 ganeName: name of game
 achievements: achievments of the game
     name: name of achievement server side
-    default value: default val of the achiev
+    defaultvalue: default val of the achiev
     displayName: what the actual name is shown as
     hidden: if 1 it is a secret achiev
     description: description of achiev
